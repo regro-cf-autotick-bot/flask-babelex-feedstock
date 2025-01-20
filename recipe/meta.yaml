@@ -5,26 +5,28 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/F/Flask-BabelEx/Flask-BabelEx-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/F/Flask-BabelEx/Flask-BabelEx-{{ version }}.tar.gz
   sha256: 39a59ccee9386a9d52d80b9101224402036aedc2c7873b11deef6e4e21cace27
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: "{{ PYTHON }} -m pip install . --no-deps -vv"
 
 requirements:
-  build:
-    - python
+  host:
+    - python {{ python_min }}
     - pip
   run:
-    - python
+    - python >={{ python_min }}
     - flask
     - babel >=1.0
     - speaklater >=1.2
     - jinja2 >=2.5
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - flask_babelex
 
